@@ -1,9 +1,11 @@
 package com.example.timeline.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Getter
 @NoArgsConstructor // 기본생성자 자동 생성
 @Entity // 테이블과 연계됨을 스프링에 정보 전달
 public class Memo extends Timestamped { // 생성,수정 시간을 자동생성
