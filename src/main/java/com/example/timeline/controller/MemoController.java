@@ -7,6 +7,8 @@ import com.example.timeline.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,7 +25,9 @@ public class MemoController {
     }
     @GetMapping("/api/memos")
     public List<Memo> readMemo() {
-       return memoRepository.findAllByOrderByModifiedAtDesc();
+        LocalDateTime now = LocalDateTime.now(); // 현재시간
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(1); // 하루전의 시간
+       return memoRepository.findAllByModifiedAtBetweenOrderByModifiedAtDesc(yesterday,now);// 하루전의 데이터부터 지금까지의 시간을 가져옴
     }
     @PutMapping("/api/memos/{id}")
     public Long updateMemo(@PathVariable Long id, @RequestBody  MemoRequestDto requestDto){
